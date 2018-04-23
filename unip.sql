@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Abr-2018 às 05:44
+-- Generation Time: 23-Abr-2018 às 23:02
 -- Versão do servidor: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -52,9 +52,9 @@ CREATE TABLE `disciplina` (
 
 CREATE TABLE `grade` (
   `idGrade` int(11) NOT NULL,
-  `id_curso` int(11) NOT NULL,
-  `id_professor` int(11) NOT NULL,
-  `id_disciplina` int(11) NOT NULL
+  `id_curso` int(11) DEFAULT NULL,
+  `id_professor` int(11) DEFAULT NULL,
+  `id_disciplina` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,7 +156,10 @@ ALTER TABLE `disciplina`
 -- Indexes for table `grade`
 --
 ALTER TABLE `grade`
-  ADD PRIMARY KEY (`idGrade`);
+  ADD PRIMARY KEY (`idGrade`),
+  ADD KEY `id_curso` (`id_curso`),
+  ADD KEY `fk_id_professor` (`id_professor`),
+  ADD KEY `fk_id_disciplina` (`id_disciplina`);
 
 --
 -- Indexes for table `professor`
@@ -168,13 +171,17 @@ ALTER TABLE `professor`
 -- Indexes for table `sala_info`
 --
 ALTER TABLE `sala_info`
-  ADD PRIMARY KEY (`idSala`);
+  ADD PRIMARY KEY (`idSala`),
+  ADD KEY `fk_tipo_sala_sala_info` (`id_tipo_sala`);
 
 --
 -- Indexes for table `sala_local`
 --
 ALTER TABLE `sala_local`
-  ADD PRIMARY KEY (`idLocal`);
+  ADD PRIMARY KEY (`idLocal`),
+  ADD KEY `fk_id_turma` (`id_turma`),
+  ADD KEY `fk_id_sala` (`id_sala`),
+  ADD KEY `fk_id_grade` (`id_grade`);
 
 --
 -- Indexes for table `tipo_sala`
@@ -186,7 +193,8 @@ ALTER TABLE `tipo_sala`
 -- Indexes for table `turma`
 --
 ALTER TABLE `turma`
-  ADD PRIMARY KEY (`idTurma`);
+  ADD PRIMARY KEY (`idTurma`),
+  ADD KEY `fk_turma_curso` (`id_curso`);
 
 --
 -- Indexes for table `usuario_adm`
@@ -242,7 +250,39 @@ ALTER TABLE `turma`
 -- AUTO_INCREMENT for table `usuario_adm`
 --
 ALTER TABLE `usuario_adm`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Limitadores para a tabela `grade`
+--
+ALTER TABLE `grade`
+  ADD CONSTRAINT `fk_id_disciplina` FOREIGN KEY (`id_disciplina`) REFERENCES `disciplina` (`idDisciplina`),
+  ADD CONSTRAINT `fk_id_professor` FOREIGN KEY (`id_professor`) REFERENCES `professor` (`id`),
+  ADD CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`idCurso`);
+
+--
+-- Limitadores para a tabela `sala_info`
+--
+ALTER TABLE `sala_info`
+  ADD CONSTRAINT `fk_tipo_sala_sala_info` FOREIGN KEY (`id_tipo_sala`) REFERENCES `tipo_sala` (`idTipoSala`);
+
+--
+-- Limitadores para a tabela `sala_local`
+--
+ALTER TABLE `sala_local`
+  ADD CONSTRAINT `fk_id_grade` FOREIGN KEY (`id_grade`) REFERENCES `grade` (`idGrade`),
+  ADD CONSTRAINT `fk_id_sala` FOREIGN KEY (`id_sala`) REFERENCES `sala_info` (`idSala`),
+  ADD CONSTRAINT `fk_id_turma` FOREIGN KEY (`id_turma`) REFERENCES `turma` (`idTurma`);
+
+--
+-- Limitadores para a tabela `turma`
+--
+ALTER TABLE `turma`
+  ADD CONSTRAINT `fk_turma_curso` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`idCurso`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
