@@ -2,18 +2,18 @@
 require_once("conexao.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON tipo_sala.id_tipo_sala = sala_info.id_tipo_sala WHERE id_sala = $id";
+  $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON tipo_sala.idTipoSala = sala_info.id_tipo_sala WHERE id_sala = $id";
   $editarSala = mysqli_query($conexao, $query);
   $resul = mysqli_fetch_assoc($editarSala);
 
-  $id_tipo_sala = $resul['id_tipo_sala'];
+  $idTipoSala = $resul['idTipoSala'];
   $bloco = $resul['bloco'];
   $nome_sala = $resul['nome_sala'];
   $nome_tipo = $resul['nome_tipo'];
   $andar = $resul['andar'];
 } else {
   $id = 0;
-  $id_tipo_sala = '';
+  $idTipoSala = '';
   $bloco = '';
   $nome_tipo = '';
   $nome_sala = '';
@@ -51,13 +51,13 @@ if (isset($_SESSION['id_usuario'])) { ?>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Tipo da Sala</label>
-    <select name="id_tipo_sala" id="" class="form-control">
+    <select name="idTipoSala" id="" class="form-control">
     	<option value="">Selecione o Tipo da Sala</option>
       <?php 
       $query = "SELECT * FROM tipo_sala ORDER BY nome_tipo ASC";
       $resultadoTipoSala = mysqli_query($conexao, $query);
       while ($listaTipoSala = mysqli_fetch_assoc($resultadoTipoSala)) { ?>
-        <option value="<?=$listaTipoSala['id_tipo_sala']?>" <?php if ($id_tipo_sala == $listaTipoSala['id_tipo_sala']) echo "selected";?>><?=$listaTipoSala['nome_tipo']?></option>
+        <option value="<?=$listaTipoSala['idTipoSala']?>" <?php if ($idTipoSala == $listaTipoSala['idTipoSala']) echo "selected";?>><?=$listaTipoSala['nome_tipo']?></option>
       <?php } ?>
     </select>
   </div>
