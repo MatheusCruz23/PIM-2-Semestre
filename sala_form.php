@@ -1,4 +1,4 @@
-<?php require_once("header.php"); 
+<?php require_once("header.php");
 require_once("conexao.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
@@ -76,13 +76,16 @@ if (isset($_SESSION['id_usuario'])) { ?>
     <th>Sala</th>
     <th>Andar</th>
     <th>Tipo Sala</th>
+    <th>Capacidade</th>
 		<th>Editar</th>
 		<th>Excluir</th>
 	</thead>
 
 	<tbody>		
 		<?php //Fazer listagem de cursos
-		$query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.id_tipo_sala ORDER BY bloco, nome_sala ASC";
+    $query = "SELECT * FROM sala_info si
+            INNER JOIN tipo_sala ts ON si.id_tipo_sala = ts.idTipoSala
+            ORDER BY bloco, nome_sala";		
 		$resultadoSala = mysqli_query($conexao, $query);
 		while($listaSala = mysqli_fetch_assoc($resultadoSala)){ ?>
     <tr>
