@@ -6,11 +6,12 @@ $bloco = strtoupper($_POST['bloco']);
 $nome_sala = $_POST['nome_sala'];
 $andar = strtoupper($_POST['andar']);
 $id_tipo_sala = $_POST['id_tipo_sala'];
+$capacidadeAluno = $_POST['capacidadeAluno'];
 
 if ($id>0) {
-	$query = "UPDATE sala_info SET id_tipo_sala = $id_tipo_sala, bloco = '$bloco', nome_sala = '$nome_sala' WHERE id_sala = $id";
+	$query = "UPDATE sala_info SET id_tipo_sala = $id_tipo_sala, bloco = '$bloco', nome_sala = '$nome_sala' WHERE idSala = $id";
 } else {
-	$query = "INSERT INTO sala_info (id_tipo_sala, nome_sala, bloco, andar) VALUES ({$id_tipo_sala}, {$nome_sala}, '{$bloco}', '{$andar}')";
+	$query = "INSERT INTO sala_info (id_tipo_sala, nome_sala, bloco, andar, qnto_lugar) VALUES ({$id_tipo_sala}, {$nome_sala}, '{$bloco}', {$andar})";	
 }
 
 mysqli_query($conexao, $query);

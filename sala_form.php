@@ -64,7 +64,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
 
   <div class="form-group">
     <label for="">Capacidade de alunos</label>
-    <input type="number" class="form-control">
+    <input type="number" class="form-control" name="capacidadeAluno">
   </div>
 
   <button type="submit" class="btn btn-success">Cadastrar</button>
