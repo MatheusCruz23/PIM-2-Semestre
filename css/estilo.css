@@ -1,0 +1,33 @@
+body{
+	background-color: #F5F5F5;
+}
+header{
+	background-color: #2083C6;
+	color: #FFF;
+	text-align: center;
+	padding: 15px;
+}
+.box{
+	padding: 15px;
+	border: 1px solid black;
+	-webkit-box-shadow: -8px 10px 12px 0px rgba(135,135,135,0.48);
+	-moz-box-shadow: -8px 10px 12px 0px rgba(135,135,135,0.48);
+	box-shadow: -8px 10px 12px 0px rgba(135,135,135,0.48);
+	background-color: #F8F8FF;
+	-webkit-border-bottom-right-radius: 30px;
+	-webkit-border-bottom-left-radius: 30px;
+	-moz-border-radius-bottomright: 30px;
+	-moz-border-radius-bottomleft: 30px;
+	border-bottom-right-radius: 30px;
+	border-bottom-left-radius: 30px;
+}
+article{
+	padding: 0px 50px 40px 20px;
+}
+input[type="text"]{
+	text-transform: uppercase;
+}
+.titulo{
+	text-align: center;
+	padding: 5px 20px 5px 10px;
+}

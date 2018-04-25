@@ -2,7 +2,7 @@
 require_once("conexao.php");
 if (isset($_GET['id'])) {
 	$id = $_GET['id'];
-	$query = "SELECT * FROM curso WHERE id_curso = $id";
+	$query = "SELECT * FROM curso WHERE idCurso = $id";
 	$resulEditar = mysqli_query($conexao, $query);
 	$resultadoEditar = mysqli_fetch_assoc($resulEditar);
 
@@ -40,8 +40,8 @@ if (isset($_SESSION['id_usuario'])) { ?>
 		while($lista = mysqli_fetch_assoc($resulCurso)){ ?>
 			<tr>			
 				<td><?=$lista['nome_curso']?></td>
-				<td><a href="curso_form.php?id=<?=$lista['id_curso']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
-				<td><a href="excluir.php?tabela=curso&campo=id_curso&pagina=curso_form&id=<?=$lista['id_curso']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
+				<td><a href="curso_form.php?id=<?=$lista['idCurso']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
+				<td><a href="excluir.php?tabela=curso&campo=idCurso&pagina=curso_form&id=<?=$lista['idCurso']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
 			</tr>
 		<?php } ?>
 	</tbody>

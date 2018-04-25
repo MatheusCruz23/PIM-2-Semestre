@@ -5,7 +5,7 @@ $id = $_POST['id'];
 $nome_curso = strtoupper($_POST['nome_curso']);
 
 if($id>0){	
-	$query = "UPDATE curso SET nome_curso = '$nome_curso' WHERE id_curso = $id";
+	$query = "UPDATE curso SET nome_curso = '$nome_curso' WHERE idCurso = $id";
 } else {
 	$query = "INSERT INTO curso (nome_curso) VALUES ('{$nome_curso}')";	
 }
