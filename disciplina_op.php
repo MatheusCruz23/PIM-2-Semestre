@@ -4,7 +4,7 @@ $id = $_POST['id'];
 $nome_disciplina = strtoupper($_POST['nome_disciplina']);
 
 if ($id>0) {
-	$query = "UPDATE disciplina SET nome_disciplina = '$nome_disciplina' WHERE id_disciplina = $id";
+	$query = "UPDATE disciplina SET nome_disciplina = '$nome_disciplina' WHERE idDisciplina = $id";
 } else {
 	$query = "INSERT INTO disciplina (nome_disciplina) VALUES ('{$nome_disciplina}')";
 }
