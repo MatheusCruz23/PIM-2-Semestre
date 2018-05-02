@@ -2,7 +2,7 @@
 require_once("conexao.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON tipo_sala.idTipoSala = sala_info.id_tipo_sala WHERE id_sala = $id";
+  $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON tipo_sala.idTipoSala = sala_info.id_tipo_sala WHERE idSala = $id";
   $editarSala = mysqli_query($conexao, $query);
   $resul = mysqli_fetch_assoc($editarSala);
 
@@ -11,6 +11,7 @@ if (isset($_GET['id'])) {
   $nome_sala = $resul['nome_sala'];
   $nome_tipo = $resul['nome_tipo'];
   $andar = $resul['andar'];
+  $capacidadeAluno = $resul['qnto_lugar'];
 } else {
   $id = 0;
   $idTipoSala = '';
@@ -18,6 +19,7 @@ if (isset($_GET['id'])) {
   $nome_tipo = '';
   $nome_sala = '';
   $andar = '';
+  $capacidadeAluno = '';
 } 
 
 if (isset($_SESSION['id_usuario'])) { ?>
@@ -64,7 +66,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
 
   <div class="form-group">
     <label for="">Capacidade de alunos</label>
-    <input type="number" class="form-control" name="capacidadeAluno">
+    <input type="number" class="form-control" name="capacidadeAluno" value="<?=$capacidadeAluno?>">
   </div>
 
   <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -117,8 +119,9 @@ if (isset($_SESSION['id_usuario'])) { ?>
         <?php break;
       } ?>
       <td><?=$listaSala['nome_tipo']?></td>
-      <td><a href="sala_form.php?id=<?=$listaSala['id_sala']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
-      <td><a href="excluir.php?tabela=sala_info&campo=id_sala&pagina=sala_form&id=<?=$listaSala['id_sala']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
+      <td><?=$listaSala['qnto_lugar']?></td>
+      <td><a href="sala_form.php?id=<?=$listaSala['idSala']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
+      <td><a href="excluir.php?tabela=sala_info&campo=idSala&pagina=sala_form&id=<?=$listaSala['idSala']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
     </tr>
 		<?php } ?>
 	</tbody>
