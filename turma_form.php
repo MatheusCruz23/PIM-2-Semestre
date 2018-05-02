@@ -2,20 +2,24 @@
 require_once("conexao.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT turma.*, curso.* FROM turma INNER JOIN curso ON turma.id_curso = curso.id_curso WHERE id_turma = $id";
+  $query = "SELECT turma.*, curso.* FROM turma INNER JOIN curso ON turma.id_curso = curso.idCurso WHERE idTurma = $id";
   $resulEditar = mysqli_query($conexao, $query);
   $resultadoEditar = mysqli_fetch_assoc($resulEditar);
 
-  $id_curso = $resultadoEditar['id_curso'];
+  $idCurso = $resultadoEditar['id_curso'];
   $nome_curso = $resultadoEditar['nome_curso'];
   $periodo_turma = $resultadoEditar['periodo_turma'];
   $semestre = $resultadoEditar['semestre'];
+  $qnto_aluno = $resultadoEditar['qnto_aluno'];
+  $turma_nome = $resultadoEditar['turma_nome'];
 } else {
   $id = 0;
-  $id_curso = '';
+  $idCurso = '';
   $nome_curso = '';
   $periodo_turma = '';
   $semestre = '';
+  $qnto_aluno = '';
+  $turma_nome = '';
 } 
 
 if (isset($_SESSION['id_usuario'])) { ?>
@@ -34,7 +38,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
       $query = "SELECT * FROM curso ORDER BY nome_curso ASC";
       $resulCurso = mysqli_query($conexao, $query);
        while($listaCurso = mysqli_fetch_assoc($resulCurso)){ ?>
-        <option value="<?=$listaCurso['id_curso']; ?>" <?php if ($id_curso == $listaCurso['id_curso']) echo "selected";?>><?=$listaCurso['nome_curso'];?></option>
+        <option value="<?=$listaCurso['idCurso']; ?>" <?php if ($idCurso == $listaCurso['idCurso']) echo "selected";?>><?=$listaCurso['nome_curso'];?></option>
       <?php } ?>
     </select>
   </div>
@@ -68,12 +72,12 @@ if (isset($_SESSION['id_usuario'])) { ?>
 
   <div class="form-group">
     <label for="">Turma:</label>
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" name="turma_nome" value="<?=$turma_nome?>">
   </div>
 
   <div class="form-group">
     <label for="">Alunos</label>
-    <input type="text" class="form-control">
+    <input type="number" class="form-control" name="qnto_aluno" value="<?=$qnto_aluno?>">
   </div>
 
   <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -84,12 +88,14 @@ if (isset($_SESSION['id_usuario'])) { ?>
 		<th>Nome do Curso</th>
     <th>Periodo</th>
     <th>Semestre</th>
+    <th>Quantidade</th>
+    <th>Turma</th>
 		<th>Editar</th>
 		<th>Excluir</th>
 	</thead>
 	<tbody>		
 		<?php //Fazer listagem de cursos
-		$query = "SELECT turma.*, curso.* FROM turma INNER JOIN curso ON turma.id_curso = curso.id_curso ORDER BY nome_curso, semestre ASC";
+		$query = "SELECT turma.*, curso.* FROM turma INNER JOIN curso ON turma.id_curso = curso.idCurso ORDER BY nome_curso, semestre ASC";
 		$resulCurso = mysqli_query($conexao, $query);
 		while($lista = mysqli_fetch_assoc($resulCurso)){ ?>
     <tr>
@@ -114,9 +120,13 @@ if (isset($_SESSION['id_usuario'])) { ?>
       } ?>
 
       <td><?=$lista['semestre']?>º SEMESTRE</td>
+      
+      <td><?=$lista['qnto_aluno']?></td>
 
-      <td><a href="turma_form.php?id=<?=$lista['id_turma']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
-      <td><a href="excluir.php?tabela=turma&campo=id_turma&pagina=turma_form&id=<?=$lista['id_turma']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
+      <td><?=$lista['turma_nome']?></td>
+
+      <td><a href="turma_form.php?id=<?=$lista['idTurma']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
+      <td><a href="excluir.php?tabela=turma&campo=idTurma&pagina=turma_form&id=<?=$lista['idTurma']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
     </tr>
 		<?php } ?>		
 	</tbody>
