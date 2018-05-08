@@ -2,9 +2,9 @@
 require_once("conexao.php"); 
 
 $id = $_POST['id'];
-$id_curso = $_POST['id_curso'];
-$id_disciplina = $_POST['id_disciplina'];
-$id_professor = $_POST['id_professor'];
+$id_curso = $_POST['idCurso'];
+$id_disciplina = $_POST['idDisciplina'];
+$id_professor = $_POST['idProfessor'];
 
 if ($id>0) {
 	$query = "UPDATE grade SET id_curso = $id_curso, id_disciplina = $id_disciplina, id_professor = $id_professor WHERE id_grade = $id";
