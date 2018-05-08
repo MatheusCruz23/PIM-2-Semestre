@@ -5,7 +5,7 @@ $id = $_POST['id'];
 $id_curso = $_POST['id_curso'];
 $periodo_turma = $_POST['periodo_turma'];
 $semestre = $_POST['semestre'];
-$turma_nome = $_POST['turma_nome'];
+$turma_nome =  strtoupper($_POST['turma_nome']);
 $qnto_aluno = $_POST['qnto_aluno'];
 
 if ($id>0) {
