@@ -46,6 +46,25 @@
           }
           }});     
         }
+
+        $(document).ready(function(){ 
+          $('.form-selecao').hide();
+          $("input[name=turma]").change(function(){
+            if($('#comTurma').prop('checked')){
+              $('.form-selecao').hide();
+              $('.form-turma').show();
+              $('#seleciona-curso').val('');
+              $('#seleciona-semestre').val('');
+              $('#seleciona-dia').val('');
+              $('#seleciona-periodo').val('');
+
+            } else {
+              $('.form-selecao').show();
+              $('.form-turma').hide();
+              $('#nome_turma').val('');
+            }
+          });
+        });
       </script> 
 <div class="titulo">
   <h1>Aula do Dia</h1>
@@ -53,52 +72,69 @@
 
 <div id="alerta" class="alert-danger "></div>
 
+<div>
+  <label for="">Sei minha turma</label>
+  <input type="radio" name="turma" id="comTurma" checked>
+
+  <label for="">Não sei minha turma</label>
+  <input type="radio" name="turma" id="semTurma">
+</div>
 <div class="box">
-  <div class="form-group">
-    <label for="seleciona-curso">Curso</label>
-    <select id="seleciona-curso" class="form-control">
- 
-    </select>
+  <div class="form-selecao">
+    <div class="form-group">
+      <label for="seleciona-curso">Curso</label>
+      <select id="seleciona-curso" class="form-control">
+   
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="seleciona-semestre">Semestre</label>
+      <select id="seleciona-semestre" class="form-control">
+         <option value="">Selecione o Semestre</option>
+         <option value="1">1º SEMESTRE</option>
+         <option value="2">2º SEMESTRE</option>
+         <option value="3">3º SEMESTRE</option>
+         <option value="4">4º SEMESTRE</option>
+         <option value="5">5º SEMESTRE</option>
+         <option value="6">6º SEMESTRE</option>
+         <option value="7">7º SEMESTRE</option>
+         <option value="8">8º SEMESTRE</option>
+         <option value="9">9º SEMESTRE</option>
+         <option value="10">10º SEMESTRE</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="seleciona-dia">Dia da Semana</label>
+      <select id="seleciona-dia" class="form-control">
+         <option value="">Selecione o Dia da Semana</option>
+         <option value="1">SEGUNDA-FEIRA</option>
+         <option value="2">TERÇA-FEIRA</option>
+         <option value="3">QUARTA-FEIRA</option>
+         <option value="4">QUINTA-FEIRA</option>
+         <option value="5">SEXTA-FEIRA</option>
+         <option value="6">SABADO</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="seleciona-periodo">Periodo</label>
+      <select id="seleciona-periodo" class="form-control">
+         <option value="">Selecione o Periodo</option>
+         <option value="1">MANHÃ</option>
+         <option value="2">TARDE</option>
+         <option value="3">NOITE</option>
+      </select>
+    </div>
   </div>
 
-  <div class="form-group">
-    <label for="seleciona-semestre">Semestre</label>
-    <select id="seleciona-semestre" class="form-control">
-       <option value="">Selecione o Semestre</option>
-       <option value="1">1º SEMESTRE</option>
-       <option value="2">2º SEMESTRE</option>
-       <option value="3">3º SEMESTRE</option>
-       <option value="4">4º SEMESTRE</option>
-       <option value="5">5º SEMESTRE</option>
-       <option value="6">6º SEMESTRE</option>
-       <option value="7">7º SEMESTRE</option>
-       <option value="8">8º SEMESTRE</option>
-       <option value="9">9º SEMESTRE</option>
-       <option value="10">10º SEMESTRE</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="seleciona-dia">Dia da Semana</label>
-    <select id="seleciona-dia" class="form-control">
-       <option value="">Selecione o Dia da Semana</option>
-       <option value="1">SEGUNDA-FEIRA</option>
-       <option value="2">TERÇA-FEIRA</option>
-       <option value="3">QUARTA-FEIRA</option>
-       <option value="4">QUINTA-FEIRA</option>
-       <option value="5">SEXTA-FEIRA</option>
-       <option value="6">SABADO</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="seleciona-periodo">Periodo</label>
-    <select id="seleciona-periodo" class="form-control">
-       <option value="">Selecione o Periodo</option>
-       <option value="1">MANHÃ</option>
-       <option value="2">TARDE</option>
-       <option value="3">NOITE</option>
-    </select>
+<!-- Faz a consulta caso a usuario saiba sua turma -->
+  <div class="form-turma">
+    <div class="form-group">
+      <label for="nome_turma">Coloque sua turma</label>
+      <input type="text" class="form-control" id="nome_turma">
+    </div>
   </div>
 
   <div id="pesquisa-aluno"></div>
