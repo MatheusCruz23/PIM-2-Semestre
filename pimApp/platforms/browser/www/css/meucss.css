@@ -1,0 +1,28 @@
+body{
+	background-color: #F5F5F5;
+}
+.titulo{
+	background-color: #2083C6;
+	color: #FFF;
+	text-align: center;
+	padding: 15px;
+}
+.alert-danger{
+	margin-top: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+.box{
+	padding: 10px;
+}
+.pesquisa-aluno{
+	background-color: #2083C6;
+	border: 1px solid #2083C6;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	padding: 5px 0px 0px 0px;
+}
+.pesquisa-aluno p{
+	padding: 0px 0px 0px 10px;
+	color: #FFF;
+}

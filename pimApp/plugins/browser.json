@@ -1,0 +1,76 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-device-motion": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-globalization": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-media": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.matheuscruz.pim"
+        }
+    }
+}
