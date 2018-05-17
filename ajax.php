@@ -13,5 +13,5 @@ $query = "SELECT * FROM grade
       $disciplina = mysqli_query($conexao, $query);
       echo '<option value="">Selecione a Disciplina</option>';
       while ($listaDisciplina = mysqli_fetch_assoc($disciplina)) { 
-       echo '<option value="'.$listaDisciplina['id_grade'].'" >'.$listaDisciplina['nome_disciplina'].' - '. $listaDisciplina['nome_professor'].'</option>';
+       echo '<option value="'.$listaDisciplina['idGrade'].'" >'.$listaDisciplina['nome_disciplina'].' - '. $listaDisciplina['nome_professor'].'</option>';
    	} ?>
