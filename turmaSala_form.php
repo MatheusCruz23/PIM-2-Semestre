@@ -2,21 +2,20 @@
 require_once("conexao.php");
 if (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT sala_local.*, turma.*, curso.*, sala_info.*, tipo_sala.*, grade.*, disciplina.*, professor.* 
-    FROM sala_local 
-    INNER JOIN turma ON sala_local.id_turma = turma.id_turma 
-    INNER JOIN curso ON turma.id_curso = curso.id_curso
-    INNER JOIN sala_info ON sala_local.id_sala = sala_info.id_sala 
-    INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.id_tipo_sala
-    INNER JOIN grade ON sala_local.id_grade = grade.id_grade 
-    INNER JOIN disciplina ON grade.id_disciplina = disciplina.id_disciplina 
-    INNER JOIN professor ON grade.id_professor = professor.id_professor 
-    WHERE id_sala_local = $id";
+  $query = "SELECT * FROM sala_local 
+    INNER JOIN turma ON sala_local.id_turma = turma.idTurma 
+    INNER JOIN curso ON turma.id_curso = curso.idCurso
+    INNER JOIN sala_info ON sala_local.id_sala = sala_info.idSala 
+    INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.idTipoSala
+    INNER JOIN grade ON sala_local.id_grade = grade.idGrade 
+    INNER JOIN disciplina ON grade.id_disciplina = disciplina.idDisciplina 
+    INNER JOIN professor ON grade.id_professor = professor.idProfessor  
+    WHERE idLocal = $id";
   $infoSalaLocal = mysqli_query($conexao, $query);
   $editarSalaLocal = mysqli_fetch_assoc($infoSalaLocal);
 
   $id_turma = $editarSalaLocal['id_turma'];
-  $id_sala = $editarSalaLocal['id_sala'];
+  $idSala = $editarSalaLocal['id_sala'];
   $id_grade = $editarSalaLocal['id_grade'];
   $nome_curso = $editarSalaLocal['nome_curso'];
   $nome_tipo = $editarSalaLocal['nome_tipo'];
@@ -25,13 +24,13 @@ if (isset($_GET['id'])) {
   $bloco = $editarSalaLocal['bloco'];
   $andar = $editarSalaLocal['andar'];
   $dia_semana = $editarSalaLocal['dia_semana'];
-  $periodo_local = $editarSalaLocal['periodo_local'];
+  $periodo_local = $editarSalaLocal['periodoLocal'];
   $semestre = $editarSalaLocal['semestre'];
   $periodo_turma = $editarSalaLocal['periodo_turma'];
 } else {
   $id = 0;
   $id_turma = '';
-  $id_sala = '';
+  $idSala = '';
   $id_grade = '';
   $nome_curso = '';
   $nome_tipo = '';
@@ -58,7 +57,9 @@ if (isset($_SESSION['id_usuario'])) { ?>
     <select name="id_turma" id="id_turma" class="form-control" required>
     <option value="">Selecione a Turma</option>
       <?php
-      $query = "SELECT turma.*, curso.* FROM turma LEFT JOIN curso ON turma.id_curso = curso.id_curso ORDER BY nome_curso, semestre ASC";
+      $query = "SELECT turma.*, curso.* FROM turma 
+      LEFT JOIN curso ON turma.id_curso = curso.idCurso 
+      ORDER BY nome_curso, semestre ASC";
       $turma = mysqli_query($conexao, $query);
       while($listaTurma = mysqli_fetch_assoc($turma)){
         if($listaTurma['periodo_turma'] == 1){ ?>
@@ -66,7 +67,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
         <?php } elseif ($listaTurma['periodo_turma'] == 2) { ?>
           <option value="<?=$listaTurma['id_turma']?>" <?php if ($id_turma == $listaTurma['id_turma']) echo "selected";?>><?=$listaTurma['nome_curso']?> - TARDE - <?=$listaTurma['semestre']; ?>º Semestre</option>
         <?php } else { ?>
-          <option value="<?=$listaTurma['id_turma']?>" <?php if ($id_turma == $listaTurma['id_turma']) echo "selected";?>><?=$listaTurma['nome_curso']?> - NOITE - <?=$listaTurma['semestre']; ?>º Semestre</option>
+          <option value="<?=$listaTurma['idTurma']?>" <?php if ($id_turma == $listaTurma['idTurma']) echo "selected";?>><?=$listaTurma['nome_curso']?> - NOITE - <?=$listaTurma['semestre']; ?>º Semestre</option>
         <?php }
       } ?>      
     </select>
@@ -74,41 +75,44 @@ if (isset($_SESSION['id_usuario'])) { ?>
 
   <div class="form-group">
     <label for="exampleInputEmail1">Sala</label>
-    <select name="id_sala" id="" class="form-control">
+    <select name="idSala" id="" class="form-control">
       <option value="">Selecione a Sala</option>
     	<?php 
-      $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.id_tipo_sala ORDER BY nome_sala ASC";
+      $query = "SELECT sala_info.*, tipo_sala.* FROM sala_info 
+      INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.idTipoSala 
+      ORDER BY nome_sala ASC";
       $sala = mysqli_query($conexao, $query);
       while ($listaSala = mysqli_fetch_assoc($sala)) {
         switch ($listaSala['andar']) {
            case 1: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 2º ANDAR</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 2º ANDAR</option>
             <?php break;
 
             case 2: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 1º ANDAR</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 1º ANDAR</option>
             <?php break;
 
             case 3: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - TERREO</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - TERREO</option>
             <?php break;
 
             case 4: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 1º SUBSOLO</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 1º SUBSOLO</option>
             <?php break;
 
             case 5: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 2º SUBSOLO</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 2º SUBSOLO</option>
             <?php break;
            
            default: ?>
-             <option value="<?=$listaSala['id_sala'];?>" <?php if ($id_sala == $listaSala['id_sala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 3º SUBSOLO</option>
+             <option value="<?=$listaSala['idSala'];?>" <?php if ($idSala == $listaSala['idSala']) echo "selected";?>><?=$listaSala['nome_tipo'] ?> - BLOCO <?=$listaSala['bloco']; ?> - <?=$listaSala['nome_sala']?> - 3º SUBSOLO</option>
             <?php break;
         }          
       } ?>
     </select>
   </div>
 
+  <!-- O campo com os nomes da disciplina é mostrada abaixo de acordo com a turma escolhida -->
   <div class="form-group">
     <label for="exampleInputEmail1">Disciplina</label>
     <select name="id_grade" id="option" class="form-control">
@@ -116,14 +120,15 @@ if (isset($_SESSION['id_usuario'])) { ?>
       
       <?php 
       $query = "SELECT grade.*, disciplina.*, professor.* FROM grade 
-      INNER JOIN disciplina ON grade.id_disciplina = disciplina.id_disciplina 
-      INNER JOIN professor ON grade.id_professor = professor.id_professor
+      INNER JOIN disciplina ON grade.id_disciplina = disciplina.idDisciplina 
+      INNER JOIN professor ON grade.id_professor = professor.idDisciplina
       ORDER BY nome_disciplina ASC";
       $disciplina = mysqli_query($conexao, $query);
       while ($listaDisciplina = mysqli_fetch_assoc($disciplina)) { ?>
            <option value="<?=$listaDisciplina['id_grade']; ?>" <?php if ($id_grade == $listaDisciplina['id_grade']) echo "selected"; ?>><?=$listaDisciplina['nome_disciplina']; ?> - <?=$listaDisciplina['nome_professor']; ?></option>
       <?php } ?>            
     	<script>
+        //Pega a turma escolhida e faz a busca da disciplina
         $("#id_turma").change(function() {
          $.ajax({url: "ajax.php?id="+$('#id_turma :selected').val(),
             success: function(result){
@@ -179,17 +184,19 @@ if (isset($_SESSION['id_usuario'])) { ?>
 		<th>Excluir</th>
 	</thead>
 	<tbody>
-		<?php //Fazer listagem de cursos
-		$query = "SELECT sala_local.*, turma.*, curso.*, sala_info.*, tipo_sala.*, grade.*, disciplina.*, professor.* 
-    FROM sala_local 
-    INNER JOIN turma ON sala_local.id_turma = turma.id_turma 
-    INNER JOIN curso ON turma.id_curso = curso.id_curso
-    INNER JOIN sala_info ON sala_local.id_sala = sala_info.id_sala 
-    INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.id_tipo_sala
-    INNER JOIN grade ON sala_local.id_grade = grade.id_grade 
-    INNER JOIN disciplina ON grade.id_disciplina = disciplina.id_disciplina 
-    INNER JOIN professor ON grade.id_professor = professor.id_professor 
-    ORDER BY nome_curso, semestre ASC";
+		<?php
+
+    //Fazer a consulta da grade para trazer a lista das informações cadastrada
+    $query = "SELECT * FROM sala_local 
+          INNER JOIN turma ON sala_local.id_turma = turma.idTurma 
+          INNER JOIN curso ON turma.id_curso = curso.idCurso
+          INNER JOIN sala_info ON sala_local.id_sala = sala_info.idSala 
+          INNER JOIN tipo_sala ON sala_info.id_tipo_sala = tipo_sala.idTipoSala
+          INNER JOIN grade ON sala_local.id_grade = grade.idGrade 
+          INNER JOIN disciplina ON grade.id_disciplina = disciplina.idDisciplina 
+          INNER JOIN professor ON grade.id_professor = professor.idProfessor 
+          ORDER BY nome_curso, semestre ASC";
+
 		$resulSalaLocal = mysqli_query($conexao, $query);
 		while($lista = mysqli_fetch_assoc($resulSalaLocal)){ ?>
       <tr>
@@ -253,7 +260,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
           <?php break;
         }
 
-        switch ($lista['periodo_local']) {
+        switch ($lista['periodoLocal']) {
            case 1: ?>
              <td>MANHÃ</td>
             <?php break;
@@ -267,7 +274,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
             <?php break;
          } ?>
 
-        <td><a href="turmaSala_form.php?id=<?=$lista['id_sala_local']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
+        <td><a href="turmaSala_form.php?id=<?=$lista['idLocal']?>"><button type="button" he class="btn btn-primary">Editar</button></a></td>
         <td><a href="excluir.php?tabela=sala_local&campo=id_sala_local&pagina=turmaSala_form&id=<?=$lista['id_sala_local']?>"><button type="button" class="btn btn-danger">Excluir</button></a></td>
       </tr>
 		<?php } ?>
