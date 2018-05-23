@@ -37,7 +37,7 @@ session_start(); ?>
 		  	<li role="presentation"><a href="professor_form.php">Professor</a></li>
 		  	<li role="presentation"><a href="disciplina_form.php">Disciplina</a></li>
 		  	<li role="presentation"><a href="curso_form.php">Curso</a></li>
-		  	<li role="presentation"><a href="login_op.php?acao=deslogar">Sair</a></li>
+		  	<li role="presentation" class="active"><a href="login_op.php?acao=deslogar">Sair</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
