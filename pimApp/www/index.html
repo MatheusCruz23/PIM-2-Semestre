@@ -17,40 +17,97 @@
 <body> 
     <script>
       $( document ).ready(function() {
-         $.ajax({url: "http://pim.matheuscruz.com/ajaxapp.php?acao=1",
-            success: function(result){
-              $('#seleciona-curso').html(result);
-            }});
-        });
-
-   function carregar(){   
         $.ajax({
-          url: "http://pim.matheuscruz.com/ajaxapp.php?acao=2&curso="+$('#seleciona-curso :selected').val() + "&semestre=" +$('#seleciona-semestre :selected').val() + "&dia=" +$('#seleciona-dia :selected').val() + "&periodo=" +$('#seleciona-periodo :selected').val(),
-         success: function(result){ 
-          if (result == "1") {
-            $('#pesquisa-aluno').removeClass('pesquisa-aluno').html("");
-            $('#alerta').html("FAVOR SELECIONAR TODOS OS CAMPOS");
-            setTimeout(function(){ 
-                $('#alerta').html("");   
-            }, 5000);
-          } else {
+          url:"http://www.pim.srti.net.br/ajaxapp.php",
+          type:"POST",
+          data: {acao: '1'},
+          dataType: 'text',
+          success: function(result){
+            $('#seleciona-curso').html(result);
+          }
+        });
+          
+        });
+      
+    function buscarTurma(){
+      var nome_turma = $('#nome_turma').val();
+
+      if (nome_turma == "") 
+      {
+        $('#pesquisa-aluno').removeClass('pesquisa-aluno').html("");
+          $('#alerta').html("FAVOR PREENCHER O CAMPO TURMA");
+          setTimeout(function(){ 
+              $('#alerta').html("");   
+          }, 5000);
+          
+      } 
+      else 
+      {
+        $.ajax({
+          url: "http://www.pim.srti.net.br/ajaxapp.php",
+          type: "POST",
+          data: {acao: '2', nome_turma: nome_turma},
+          dataType: 'text',
+          success: function(result){
             $('#alerta').html("");
-            $('#seleciona-curso').val("");
-            $('#seleciona-semestre').val("");
-            $('#seleciona-dia').val("");
-            $('#seleciona-periodo').val("");
+            $('#nome_turma').val('');            
             $('#pesquisa-aluno').addClass('pesquisa-aluno').html(result);
             setTimeout(function(){ 
                 $('#pesquisa-aluno').removeClass('pesquisa-aluno').html("");   
             }, 10000);
           }
-          }});     
+        });
+      }
+    }
+
+   function carregar(){
+        
+        var curso = $('#seleciona-curso').val();
+        var semestre = $('#seleciona-semestre').val();
+        var dia = $('#seleciona-dia').val();
+        var periodo = $('#seleciona-periodo').val();
+
+
+        if(curso == "" || semestre == "" || dia == "" || periodo == ""){
+          $('#pesquisa-aluno').removeClass('pesquisa-aluno').html("");
+            $('#alerta').html("FAVOR SELECIONAR TODOS OS CAMPOS");
+            setTimeout(function(){ 
+                $('#alerta').html("");   
+            }, 5000);
+            $('#seleciona-curso').val('');
+            $('#seleciona-semestre').val('');
+            $('#seleciona-dia').val('');
+            $('#seleciona-periodo').val('');
+        } else {
+          $.ajax({
+            url: "http://www.pim.srti.net.br/ajaxapp.php",
+            type: "POST",
+            data: {acao: '3', curso: curso, semestre: semestre, dia: dia, periodo: periodo},
+            dataType: 'text',
+            success: function(result){
+              $('#alerta').html("");
+              $('#seleciona-curso').val("");
+              $('#seleciona-semestre').val("");
+              $('#seleciona-dia').val("");
+              $('#seleciona-periodo').val("");
+              $('#pesquisa-aluno').addClass('pesquisa-aluno').html(result);
+              setTimeout(function(){ 
+                  $('#pesquisa-aluno').removeClass('pesquisa-aluno').html("");   
+              }, 10000);
+            }
+          });
+        }        
+         
         }
 
         $(document).ready(function(){ 
-          $('.form-selecao').hide();
+          $('.box').hide();
           $("input[name=turma]").change(function(){
+            $('.box').show();
             if($('#comTurma').prop('checked')){
+              $('#comTurma').addClass('selecionaCor');
+              $('#consulta-sala').hide();
+              $('#consulta-turma').show();
               $('.form-selecao').hide();
               $('.form-turma').show();
               $('#seleciona-curso').val('');
@@ -60,6 +117,8 @@
 
             } else {
               $('.form-selecao').show();
+              $('#consulta-turma').hide();
+              $('#consulta-sala').show();
               $('.form-turma').hide();
               $('#nome_turma').val('');
             }
@@ -67,18 +126,19 @@
         });
       </script> 
 <div class="titulo">
-  <h1>Aula do Dia</h1>
+  <h1>LocalizUNIP</h1>
+</div>
+
+<div id="opcaoRadio">
+  <label for="comTurma" id="lblComTurma">Código Turma</label>
+  <input type="radio" name="turma" id="comTurma">
+
+  <label for="semTurma">Não sei minha turma</label>
+  <input type="radio" name="turma" id="semTurma">
 </div>
 
 <div id="alerta" class="alert-danger "></div>
 
-<div>
-  <label for="">Sei minha turma</label>
-  <input type="radio" name="turma" id="comTurma" checked>
-
-  <label for="">Não sei minha turma</label>
-  <input type="radio" name="turma" id="semTurma">
-</div>
 <div class="box">
   <div class="form-selecao">
     <div class="form-group">
@@ -138,7 +198,7 @@
   </div>
 
   <div id="pesquisa-aluno"></div>
-
+  <button onclick="buscarTurma()" id="consulta-turma" class="btn btn-success">Consultar</button>
   <button onclick="carregar()" id="consulta-sala" class="btn btn-success">Consultar</button>
 </div>
     <script type="text/javascript" src="cordova.js"></script>
