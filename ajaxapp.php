@@ -6,7 +6,7 @@ if ($_POST['acao'] == 1) {
 	$query = " SELECT * FROM curso";
 	
 	$resultadoCurso = mysqli_query($conexao, $query);
-	echo '<option value="">SELECIONAR CURSO</option>';
+	echo '<option value="">Selecione o curso</option>';
 	while ($listaCurso = mysqli_fetch_assoc($resultadoCurso)) {
 	    echo '<option value='.$listaCurso['idCurso'].'>'.$listaCurso['nome_curso'].'</option>';
 	}
@@ -45,8 +45,8 @@ if ($_POST['acao'] == 1) {
 	    	echo "<p>ANDAR: 3º SUBSOLO</p>";          
 	    } 
 
-	    echo "<p>DISCIPLINA:".$listaTurma['nome_disciplina']."</p>";
-	    echo "<p>BLOCO:".$listaTurma['nome_professor']."</p>";
+	    echo "<p>DISCIPLINA: ".$listaTurma['nome_disciplina']."</p>";
+	    echo "<p>PROFESSOR: ".$listaTurma['nome_professor']."</p>";
 	}
 } else if ($_POST['acao'] == 3) {
 	
@@ -87,7 +87,7 @@ if ($_POST['acao'] == 1) {
 		    } 
 
 		    echo "<p>DISCIPLINA: ".$listaConsulta['nome_disciplina']."</p>";
-		    echo "<p>BLOCO: ".$listaConsulta['nome_professor']."</p>"; 
+		    echo "<p>PROFESSOR: ".$listaConsulta['nome_professor']."</p>"; 
 		}		
 	}
 }
