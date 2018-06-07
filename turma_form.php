@@ -46,7 +46,7 @@ if (isset($_SESSION['id_usuario'])) { ?>
   <div class="form-group">
     <label for="exampleInputEmail1">Periodo</label>
     <select name="periodo_turma" id="" class="form-control" required>
-    	<option value="">Selecione o Peirodo</option>
+    	<option value="">Selecione o Periodo</option>
     	<option value="1" <?php if ($periodo_turma == 1) echo "selected";?>>MANHÃ</option>
     	<option value="2" <?php if ($periodo_turma == 2) echo "selected";?>>TARDE</option>
     	<option value="3" <?php if ($periodo_turma == 3) echo "selected";?>>NOITE</option>
